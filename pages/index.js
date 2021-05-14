@@ -1,8 +1,19 @@
 import Head from 'next/head'
 import Image from 'next/image'
+import { buildUrl } from 'cloudinary-build-url'
+import {Cloudinary} from 'cloudinary-core';
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
+
+  const url = buildUrl("starry_sky_boat_reflection_125803_1600x1200_jyjzx4", {
+    cloud: {
+      cloudName: 'demoappmovie',
+    },
+  })
+
+  const cloudinaryCore = new Cloudinary({cloud_name: 'demoappmovie'});
+
   return (
     <div className={styles.container}>
       <Head>
@@ -21,6 +32,36 @@ export default function Home() {
           Get started by editing{' '}
           <code className={styles.code}>pages/index.js</code>
         </p>
+
+        <div className={styles.grid}>
+          <Image
+            src="/abc.jpg"
+            alt="image"
+            width="500"
+            height="400"
+          />
+          <h3> Image Static </h3>
+        </div>
+
+        <div className={styles.grid}>
+          <Image
+            src={cloudinaryCore.url('sample')}
+            alt="image"
+            width="500"
+            height="400"
+          />
+          <h3> Image Cloud </h3>
+        </div>
+
+        <div className={styles.grid}>
+          <Image
+            src={url}
+            alt="image"
+            width="500"
+            height="400"
+          />
+          <h3> Image Cloud - dynamic </h3>
+        </div>
 
         <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
